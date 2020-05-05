@@ -1,6 +1,7 @@
 """
 Puzzle board validator
 """
+# 20 may edit
 
 def check_uniqueness_in_rows(board: list):
     """
@@ -16,6 +17,7 @@ def check_uniqueness_in_rows(board: list):
                 if row.count(element) > 1:  # checking duplicates
                     return False
     return True
+
 
 def check_uniqueness_in_columns(board: list):
     """
@@ -33,6 +35,7 @@ def check_uniqueness_in_columns(board: list):
         rotated_board.append("".join(col_list))
 
     return check_uniqueness_in_rows(rotated_board)
+
 
 def check_color_uniqueness(board):
     """
@@ -52,18 +55,18 @@ def check_color_uniqueness(board):
             if v_element == '*':
                 board[row][column] = 't'
             elif v_element == 't':  # move horizontally to follow the color
-                for index, el in enumerate(board[row-1]):
-                    if el == '*' or el == 't':
+                for index, element in enumerate(board[row-1]):
+                    if element == '*' or element == 't':
                         board[row-1][column] = 't'
                     else:
-                        temp_list.append(el)
+                        temp_list.append(element)
                         board[row - 1][index] = 't'
             else:
                 temp_list.append(v_element)
                 board[row][column] = 't'  # mark changes on occupied elements
         color_lists.append("".join(temp_list))
-    return check_uniqueness_in_rows(color_lists)
 
+    return check_uniqueness_in_rows(color_lists)
 
 def validate_board(board):
     """
