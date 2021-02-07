@@ -26,19 +26,21 @@ def check_uniqueness_in_rows(board: list):
     return True
 
 def check_uniqueness_in_columns(board: list):
-    # """
-    # Checks uniqueness in board columns
-    # :param board:
-    # :return:
-    # """
-    # size = len(board)
-    # for i in range(size):
-    #     col_list = []
-    #     for j in range(size):
-    #         col_list.append(board[j][i])
-    #     print(col_list)
-    pass
-# print(check_uniqueness_in_columns(board))
+    """
+    Checks uniqueness in board columns
+    >>> check_uniqueness_in_columns(['1**','345','1**'])
+    False
+    """
+    size = len(board)
+    rotated_board = []
+    # Rotating the board to use the former function
+    for i in range(size):
+        col_list = []
+        for j in range(size):
+            col_list.append(board[j][i])
+        rotated_board.append("".join(col_list))
+
+    return check_uniqueness_in_rows(rotated_board)
 
 def validate_board(board):
 
