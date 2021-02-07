@@ -35,7 +35,11 @@ def check_uniqueness_in_columns(board: list):
     return check_uniqueness_in_rows(rotated_board)
 
 def check_color_uniqueness(board):
-    "Checks for color duplicates"
+    """
+    Checks for color duplicates
+    >>> check_color_uniqueness(['18*','231','31*'])
+    False
+    """
     color_lists = []
     board = [list(row) for row in board]
     board = [row+['t'] for row in board]
