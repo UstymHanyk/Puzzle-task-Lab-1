@@ -1,20 +1,12 @@
 """
 Puzzle board validator
 """
-# board = [
-#  "**** ****",
-#  "***1 ****",
-#  "**  3****",
-#  "* 4 1****",
-#  "     9 5 ",
-#  " 6  83  *",
-#  "3   1  **",
-#  "  8  2***",
-#  "  2  ****"
-# ]
+
 def check_uniqueness_in_rows(board: list):
     """
-
+    Checks uniqueness in board rows
+    >>> check_uniqueness_in_rows(['12*','315','9**'])
+    True
     """
     for row in board:  # iterating through row
         for element in row:
@@ -42,6 +34,38 @@ def check_uniqueness_in_columns(board: list):
 
     return check_uniqueness_in_rows(rotated_board)
 
-def validate_board(board):
+def check_color_uniqueness(board):
+    "Checks for color duplicates"
+    color_lists = []
+    board = [list(row) for row in board]
+    board = [row+['t'] for row in board]
+    board.append(['t' for el in range(len(board)+1)])
+    size = len(board)
+    for column in range(size):
+        temp_list = []
+        for row in range(size):
+            v_element = board[row][column]
+            if v_element == '*':
+                board[row][column] = 't'
+            elif v_element == 't':  # move horizontally to follow the color
+                for index, el in enumerate(board[row-1]):
+                    if el == '*' or el == 't':
+                        board[row-1][column] = 't'
+                    else:
+                        temp_list.append(el)
+                        board[row - 1][index] = 't'
+            else:
+                temp_list.append(v_element)
+                board[row][column] = 't'  # mark changes on occupied elements
+        color_lists.append("".join(temp_list))
+    return check_uniqueness_in_rows(color_lists)
 
-    pass
+
+def validate_board(board):
+    """
+    Validates the board
+    :param board:
+    :return:
+    """
+    return check_uniqueness_in_columns(board) and check_uniqueness_in_rows(board) \
+    and check_color_uniqueness(board)
